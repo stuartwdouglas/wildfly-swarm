@@ -71,6 +71,7 @@ public class StartMojo extends AbstractSwarmMojo {
     @SuppressWarnings("unchecked")
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+
         initProperties(true);
         initEnvironment();
 
@@ -86,6 +87,7 @@ public class StartMojo extends AbstractSwarmMojo {
             throw new MojoExecutionException("Unsupported packaging: " + this.project.getPackaging());
         }
 
+        setup(executor);
         executor.withJVMArguments( this.jvmArguments );
 
         final SwarmProcess process;
@@ -147,6 +149,10 @@ public class StartMojo extends AbstractSwarmMojo {
                 process.destroyForcibly();
             }
         }
+    }
+
+    protected void setup(SwarmExecutor executor) throws MojoFailureException {
+
     }
 
     @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
